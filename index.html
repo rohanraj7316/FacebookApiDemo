@@ -25,20 +25,37 @@
         js = d.createElement(s); js.id = id;
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    }(document, 'script', 'facebook-jdk'));
     FB.getLoginStatus(function(response){
         statusChangeCallback(response);
     });
 
     function checkLoginState() {
         FB.getLoginStatus(function(response) {
-            console.log(statusChangeCallback(response));
+            statusChangeCallback(response);
         });
     }
     function statusChangeCallback(response) {
-        console.log(response);
-    }
 
+            FB.login(function(response){
+                if(response.authResponse){
+                    console.log('welcome fetching your information');
+                    FB.api('/me',function (responce) {
+                        console.log(responce);
+
+                    });
+                }else{
+                    console.log('User cancelled login');
+                }
+            },{
+                scope:'email,user_likes,user_posts',
+                return_scopes:true
+            });
+
+    }
+    Fb.logout(function(response){
+        console.log(response);
+    });
 </script>
 </body>
 </html>

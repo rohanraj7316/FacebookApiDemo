@@ -21,7 +21,15 @@ app.get('/',Facebook.loginRequired(),function (req,res) {
        res.end("hello, "+user.name + '!');
     });
 });
-
+app.get('/post_on_facebook',function (req,res) {
+   var option = {
+       "uri":"https://graph.facebook.com/me/feed?message=\"hello\"&access_token=EAACEdEose0cBAFljOFt5LPbZB23AQot7IJZCE3rFlyFjLVsxf7hZCZCVZBmpmFf5AtwVJ4FOdngu3NSIdCnSRfdkJj4glQ4cPZCMBQ3ZCJOZA78VwQgjCFgCjt7vybk48FaEqsuD7XmxSEwnALhY7unLw0EMVQwGEHPZAjCcz8XmPpH26wwVivbKYHbBb7ZA0c76QZD",
+       "method": "POST"
+   };
+    request(option,function (err,response) {
+        res.json(response);
+    });
+});
 app.post('/postapost',function (req,res) {
     request.post({url:'https://graph.facebook.com/me/feed',form : { message:"hello"}});
 })
