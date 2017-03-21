@@ -29,10 +29,27 @@ app.get('/post_on_facebook',function (req,res) {
     request(option,function (err,response) {
         res.json(response);
     });
+
+});
+var access_token = "EAACEdEose0cBAFljOFt5LPbZB23AQot7IJZCE3rFlyFjLVsxf7hZCZCVZBmpmFf5AtwVJ4FOdngu3NSIdCnSRfdkJj4glQ4cPZCMBQ3ZCJOZA78VwQgjCFgCjt7vybk48FaEqsuD7XmxSEwnALhY7unLw0EMVQwGEHPZAjCcz8XmPpH26wwVivbKYHbBb7ZA0c76QZD"";
+app.get('/refreshToken',function (req,res) {
+    var option = {
+        "uri" : "https://graph.facebook.com/oauth/access_token?client_id=1387713484624725&client_secret=96836dea0779d359a40d825e2805e2fc&grant_type=fb_exchange_token&fb_exchange_token=access_token",
+        "method" : "POST"
+    };
+    request(option,function (err,response) {
+       if(err){
+        res.status(400).json(err);
+       }else {
+
+           res.json(response);
+       }
+    });
+
 });
 app.post('/postapost',function (req,res) {
     request.post({url:'https://graph.facebook.com/me/feed',form : { message:"hello"}});
-})
+});
 app.listen(8080,function () {
    console.log('server is running on port no 8080');
 });
